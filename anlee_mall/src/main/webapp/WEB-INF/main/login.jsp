@@ -2,31 +2,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="/js/common.js"></script>
 <title>Login</title>
 </head>
 <body>
 	<h1>Login</h1>
 </body>
 <script>
-	var param = {
-		"queryId" : ""
-	}
-	
-	$.ajax({
-	    url: "/test/selectOne",
-	    type: "POST",
-	    contentType: "application/json",
-	    data: JSON.stringify(param),
-	    success: function (responseData) {
-	
-			// callback 함수가 있을 경우 함수 실행
-			if(callbackFun != undefined){
-				callbackFun(responseData);
-			}
-	    },
-	    error: function (responseData) {
-	        alert("error");
-	    }
+	document.addEventListener('DOMContentLoaded', function() {
+		var param = {
+			"queryId" : "loginDAO.selectUserSn"
+		}
+		
+		com_selectOne(param, function(e){
+			console.log("asdf" + e);
+		})
 	});
 </script>
 </html>
