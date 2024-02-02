@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository("mainDAO")
 public class MainDAO {
 	
+	@Autowired
 	private SqlSession sqlSession;
 	
 	// 단건 조회
