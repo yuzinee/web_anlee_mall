@@ -150,3 +150,7 @@
 	    return paramValue;
 	}
 	
+	function clickTest() {
+		alert('클릭성공');
+	}
+	
