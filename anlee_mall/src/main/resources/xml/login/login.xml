@@ -5,5 +5,8 @@
         SELECT USER_SN
 		FROM TB_USER
     </select>
+    
+    <insert id="insertUserInfo">
+    	
+    </insert>
 </mapper>
-

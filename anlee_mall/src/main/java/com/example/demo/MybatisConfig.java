@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan("com.example.demo.dao") // DAO 패키지 위치 설정
+@MapperScan("com.example.demo.dao")
 public class MybatisConfig {
 
     @Bean
