@@ -16,35 +16,8 @@
 		}
 		
 		com_selectOne(param, function(e){
-			console.log("asdf" + e);
+			console.log("asdf" + e.USER_SN);
 		})
 	});
-	
-// 	function com_selectOne(param, callbackFun) {	
-		
-// 		// 쿼리 ID가 생략되었을 경우
-// 		if(param.length < 1){
-// 			alert("쿼리 ID를 입력해 주세요.");
-			
-// 			return false;
-// 		}
-			
-// 		$.ajax({
-// 		    url: "/main/selectOne",
-// 		    type: "POST",
-// 		    contentType: "application/json",
-// 		    data: JSON.stringify(param),
-// 		    success: function (responseData) {
-
-// 				// callback 함수가 있을 경우 함수 실행
-// 				if(callbackFun != undefined){
-// 					callbackFun(responseData);
-// 				}
-// 		    },
-// 		    error: function (responseData) {
-// 		        alert("error");
-// 		    }
-// 		});
-// 	}
 </script>
 </html>
