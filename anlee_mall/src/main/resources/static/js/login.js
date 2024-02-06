@@ -8,17 +8,16 @@
 				alert("모든 정보를 입력해 주세요.");
 			    inputs[i].focus();
 			    
-			    break;
+			    return false;
 			}
 		}
 		
-		// 아이디 check
-		if(!com_isAlphanumeric($("#inp_id").val().trim())){
-			alert("아이디는 알파벳과 숫자만 입력 가능합니다.");
-			$("#inp_id").focus();
+		// 아이디 중복 check
+		if($("#inp_check").val() == "N"){
+			alert("아이디 중복 체크를 진행해주세요.");
 			
 			return false;
-		};
+		}
 		
 		// 비밀번호 check
 		if(!com_isValidAlphanumericSpecial($("#inp_password").val().trim())){

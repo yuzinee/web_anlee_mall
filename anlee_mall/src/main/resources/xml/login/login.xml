@@ -6,7 +6,38 @@
 		FROM TB_USER
     </select>
     
+    <select id="selectId" resultType="Map" parameterType="String">
+        SELECT USER_SN
+		FROM TB_USER
+		WHERE USER_ID = #{id}
+    </select>
+    
     <insert id="insertUserInfo">
-    	
+    	INSERT INTO TB_USER(
+			USER_SN 
+		  , USER_ID 
+		  , USER_PSWRD 
+		  , USER_TYPE 
+		  , USER_NM 
+		  , USER_GNDR
+		  , USER_BRT 
+		  , USER_ADR 
+		  , USER_PN
+		  , RGSTR_DT
+		) 
+		SELECT 
+			IFNULL(MAX_USER_SN, 0) + 1
+		  , #{param[id]}
+		  , #{param[password]}
+		  , 0
+		  , #{param[name]}
+		  , #{param[gender]}
+		  , #{param[birthday]}
+		  , #{param[addressDetail]}
+		  , #{param[phone]}
+		  , sysdate()
+		FROM (
+		    SELECT MAX(USER_SN) AS MAX_USER_SN FROM TB_USER
+		) AS subquery
     </insert>
 </mapper>

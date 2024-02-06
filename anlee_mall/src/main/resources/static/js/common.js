@@ -150,7 +150,12 @@
 	    return paramValue;
 	}
 	
-	function clickTest() {
-		alert('클릭성공');
+	// serialize 문자열 -> json
+	function com_jsonParse(param) {
+	    return param.split('&').reduce(function(acc, item) {
+	        var parts = item.split('=');
+	        acc[parts[0]] = parts[1] || ''; // 빈 값이면 빈 문자열로 설정
+	        return acc;
+	    }, {});
 	}
 	
