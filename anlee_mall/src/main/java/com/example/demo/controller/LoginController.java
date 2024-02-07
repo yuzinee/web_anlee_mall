@@ -34,11 +34,34 @@ public class LoginController {
     public void insert(@RequestBody Map<String, Object> insertMap) throws Exception {
 		String queryId = (String) insertMap.get("queryId"); 						// 쿼리ID
 		Map<String, Object> param = (Map<String, Object>) insertMap.get("param"); 	// 파라미터
-		String password = (String) param.get("password");							// 패스워드
+
+		// 비밀번호 암호화
+		String password = (String) param.get("password");
+		param.put("password", passwordEncoder.encode(password));
 		
-		param.put("password", passwordEncoder.encode(password)); // 암호화
 		insertMap.put("param", param);
 		
 		mainService.insert(queryId, insertMap);
     }
+	
+	// 로그인
+	@RequestMapping(value = "/login/selectLogin", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody 
+	public Map<String, Object> selectLogin(@RequestBody Map<String, Object> selectMap) throws Exception {
+	    String queryId = (String) selectMap.get("queryId"); // 쿼리 ID
+	    Map<String, Object> selectInfo = mainService.selectOne(queryId, selectMap);
+	    
+	    String inputPassword = (String) selectMap.get("password");
+	    String storedPassword = (String) selectInfo.get("USER_PSWRD");
+	    
+	    boolean passwordMatches = passwordEncoder.matches(inputPassword, storedPassword);
+	    
+	    if(passwordMatches) {
+	    	selectInfo.put("result", "S");
+	    } else {
+	    	selectInfo.put("result", "F");
+	    }
+
+	    return selectInfo;
+	}
 }
