@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -47,7 +50,7 @@ public class LoginController {
 	// 로그인
 	@RequestMapping(value = "/login/selectLogin", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody 
-	public Map<String, Object> selectLogin(@RequestBody Map<String, Object> selectMap) throws Exception {
+	public Map<String, Object> selectLogin(@RequestBody Map<String, Object> selectMap, HttpServletRequest request) throws Exception {
 	    String queryId = (String) selectMap.get("queryId"); // 쿼리 ID
 	    Map<String, Object> selectInfo = mainService.selectOne(queryId, selectMap);
 	    
@@ -57,6 +60,9 @@ public class LoginController {
 	    boolean passwordMatches = passwordEncoder.matches(inputPassword, storedPassword);
 	    
 	    if(passwordMatches) {
+	    	HttpSession session = request.getSession(true);
+            session.setAttribute("userId", selectInfo.get("USER_ID"));
+            
 	    	selectInfo.put("result", "S");
 	    } else {
 	    	selectInfo.put("result", "F");

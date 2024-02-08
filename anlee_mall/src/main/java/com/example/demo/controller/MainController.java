@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,10 +37,22 @@ public class MainController {
 	
 	// 화면 전환
 	@RequestMapping("/{url}")
-	public String otherController(@PathVariable("url") String url) {
+	public String otherController(@PathVariable("url") String url, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		
+	    if (url.startsWith("user_")) {
+	    	
+	        return url; // user_ 로 시작하는 URL은 세션 상관없이 페이지 전환
+	    }
 	    
-        return url;
-    }
+	    if (url.startsWith("manage_")&&(session == null || session.getAttribute("userId") == null)) {
+
+	    	return "/login"; // 세션이 없거나 사용자 아이디가 없는 경우 로그인 페이지로 이동
+	    } else {
+	        	
+	        return url; // 세션이 있고 사용자 아이디가 있는 경우 요청된 URL로 이동
+	    }
+	}
 
 	// 단건 조회
 	@RequestMapping(value = "/main/selectOne", method = RequestMethod.POST, consumes = "application/json")
