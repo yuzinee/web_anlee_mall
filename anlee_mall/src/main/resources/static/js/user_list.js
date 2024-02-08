@@ -1,4 +1,16 @@
-sampleTest();
+function createCategory(first, second) {
+  var categoryHtml = `
+    <a href="?ite">${first}</a><span>&nbsp;&gt;&nbsp;${second}</span>
+    `;
+  return categoryHtml;
+}
+
+function selectCategory(sn){
+  if (sn == null){
+    return;  
+  };
+  categoryDetail.innerHTML += createCategory("TV/디스플레이","모니터");
+}
 
 function createCard(sn, title, text, imageurl) {
   var cardHtml = `
@@ -13,7 +25,7 @@ function createCard(sn, title, text, imageurl) {
   return cardHtml;
 }
 
-function sampleTest(){
+function selectList(){
   var testitem = [
     { imgSrc: "/image/i1.png", text: "1원" },
     { imgSrc: "/image/i2.png", text: "2원" },
@@ -49,11 +61,10 @@ function sampleTest(){
     { imgSrc: "/image/f2.png", text: "32원" },
     { imgSrc: "/image/f1.png", text: "33원" },
     { imgSrc: "/image/f1.png", text: "34원" },
-    { imgSrc: "/image/f1.png", text: "35원" },
-    { imgSrc: "/image/f3.png", text: "15,000원" }
+    { imgSrc: "/image/f3.png", text: "11313212312315,000원" }
   ];
   for (var i = 0; i < testitem.length; i++) {
-    cardList.innerHTML += createCard(i+1, "상품명", testitem[i].text, testitem[i].imgSrc);
+    cardList.innerHTML += createCard(i+1, "ㅁㄴㅇㄻㄴㅇㄹ상품명이에요상품명상품명이에요상품명상품명이에요상품명", testitem[i].text, testitem[i].imgSrc);
   };
 }
 

@@ -3,11 +3,14 @@ var slideInterval; // 자동 슬라이드 쇼를 멈추기 위한 변수
 createSlide(); // 슬라이드 생성
 showSlides(slideIndex); // 슬라이드 표시
 
+/* 리스트 출력 user_list.js */
+selectList();
+
 function createImage(imgSrc, text, page, totalpage) {
   var slideHtml = `
     <div class="mySlides fade">
       <div class="numbertext">${page} / ${totalpage}</div>
-      <img src="${imgSrc}" style="width:100%">
+      <img src="${imgSrc}">
       <div class="text">${text}</div>
     </div>
   `;
@@ -26,6 +29,7 @@ function createSlide() {
   var slidesData = [
     { imgSrc: "/image/f1.png", text: "사진 1번" },
     { imgSrc: "/image/f2.png", text: "사진 2번" },
+    { imgSrc: "/image/i2.png", text: "힝힝힝" },
     { imgSrc: "/image/f3.png", text: "사딘 3번" }
   ];
   for (var i = 0; i < slidesData.length; i++) {
