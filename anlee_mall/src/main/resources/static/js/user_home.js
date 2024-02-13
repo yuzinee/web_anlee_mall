@@ -83,10 +83,8 @@ function createCard(sn, title, prcs, amnt, per, path, nm, extns) {
     const discountedPrice = prcs - amnt - (prcs * (0.01 * per));
     discountedPriceHtml = `<p class="card-delete"><s>${numberWithCommas(prcs)}원</s></p><p class="card-result">${numberWithCommas(discountedPrice)}원</p>`;
   }
-  console.log("한번");
-  console.log(path + nm + extns);
   var cardHtml = `
-    <a class="card-container" href="?itemSn=${sn}">
+    <a class="card-container" href="/user_item?itemSn=${sn}">
       <img src="${path + nm + extns}" class="card-image">
       <div class="card-infor">
         <p class="card-title">${title}</p>
@@ -100,7 +98,9 @@ function createCard(sn, title, prcs, amnt, per, path, nm, extns) {
 // 홈화면 리스트 만들기
 function createHomeList(){
   var paramNew = {
-      "queryId"	: "userDAO.selectNew"
+      "queryId"	: "userDAO.selectList"
+    , "typeSn" : ""
+    , "limitNo" : "4"
   }
   com_selectList(paramNew, function(resultNew) {
 	  var itemNew = resultNew;
@@ -118,7 +118,9 @@ function createHomeList(){
     };
   });
   var paramTv = {
-      "queryId"	: "userDAO.selectTv"
+      "queryId"	: "userDAO.selectList"
+    , "typeSn" : "1_1"
+    , "limitNo" : "4"
   }
   com_selectList(paramTv, function(resultTv) {
 	  var itemTv = resultTv;
@@ -136,7 +138,9 @@ function createHomeList(){
     };
   });
   var paramRef = {
-      "queryId"	: "userDAO.selectRef"
+      "queryId"	: "userDAO.selectList"
+    , "typeSn" : "3_1"
+    , "limitNo" : "4"
   }
   com_selectList(paramRef, function(resultRef) {
 	  var itemRef = resultRef;

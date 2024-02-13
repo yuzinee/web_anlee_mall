@@ -1,3 +1,5 @@
+selectList();
+
 function createCategory(first, second) {
   var categoryHtml = `
     <a href="?ite">${first}</a><span>&nbsp;&gt;&nbsp;${second}</span>
@@ -12,58 +14,47 @@ function selectCategory(sn){
   categoryDetail.innerHTML += createCategory("TV/디스플레이","모니터");
 }
 
-function createCard(sn, title, text, imageurl) {
+// 리스트 html 제작
+function createCard(sn, title, prcs, amnt, per, path, nm, extns) {
+  var discountedPriceHtml = '';
+  if (amnt === '0' && per === '0') {
+    discountedPriceHtml = `<p class="card-text">${numberWithCommas(prcs)}원</p>`;
+  } else {
+    const discountedPrice = prcs - amnt - (prcs * (0.01 * per));
+    discountedPriceHtml = `<p class="card-delete"><s>${numberWithCommas(prcs)}원</s></p><p class="card-result">${numberWithCommas(discountedPrice)}원</p>`;
+  }
   var cardHtml = `
-    <a class="card-container" href="?itemSn=${sn}">
-      <img src="${imageurl}" class="card-image">
+    <a class="card-container" href="/user_item?itemSn=${sn}">
+      <img src="${path + nm + extns}" class="card-image">
       <div class="card-infor">
         <p class="card-title">${title}</p>
-        <p class="card-text">${text}</p>
+        ${discountedPriceHtml}
       </div>
     </a>
     `;
   return cardHtml;
 }
 
+// 리스트 제작
 function selectList(){
-  var testitem = [
-    { imgSrc: "/image/i1.png", text: "1원" },
-    { imgSrc: "/image/i2.png", text: "2원" },
-    { imgSrc: "/image/i3.png", text: "3원" },
-    { imgSrc: "/image/i2.png", text: "4원" },
-    { imgSrc: "/image/i1.png", text: "5원" },
-    { imgSrc: "/image/i1.png", text: "6원" },
-    { imgSrc: "/image/i2.png", text: "7원" },
-    { imgSrc: "/image/i3.png", text: "8원" },
-    { imgSrc: "/image/i2.png", text: "9원" },
-    { imgSrc: "/image/i2.png", text: "10원" },
-    { imgSrc: "/image/i2.png", text: "11원" },
-    { imgSrc: "/image/i3.png", text: "12원" },
-    { imgSrc: "/image/i3.png", text: "13원" },
-    { imgSrc: "/image/i2.png", text: "14원" },
-    { imgSrc: "/image/i1.png", text: "15원" },
-    { imgSrc: "/image/i1.png", text: "16원" },
-    { imgSrc: "/image/i2.png", text: "17원" },
-    { imgSrc: "/image/i2.png", text: "18원" },
-    { imgSrc: "/image/i1.png", text: "19원" },
-    { imgSrc: "/image/i2.png", text: "20원" },
-    { imgSrc: "/image/i3.png", text: "21원" },
-    { imgSrc: "/image/f2.png", text: "22원" },
-    { imgSrc: "/image/f1.png", text: "23원" },
-    { imgSrc: "/image/f1.png", text: "24원" },
-    { imgSrc: "/image/f1.png", text: "25원" },
-    { imgSrc: "/image/f3.png", text: "26원" },
-    { imgSrc: "/image/f3.png", text: "27원" },
-    { imgSrc: "/image/f2.png", text: "28원" },
-    { imgSrc: "/image/f2.png", text: "29원" },
-    { imgSrc: "/image/f1.png", text: "30원" },
-    { imgSrc: "/image/f1.png", text: "31원" },
-    { imgSrc: "/image/f2.png", text: "32원" },
-    { imgSrc: "/image/f1.png", text: "33원" },
-    { imgSrc: "/image/f1.png", text: "34원" },
-    { imgSrc: "/image/f3.png", text: "11313212312315,000원" }
-  ];
-  for (var i = 0; i < testitem.length; i++) {
-    cardList.innerHTML += createCard(i+1, "ㅁㄴㅇㄻㄴㅇㄹ상품명이에요상품명상품명이에요상품명상품명이에요상품명", testitem[i].text, testitem[i].imgSrc);
-  };
+  var paramData = {
+      "queryId"	: "userDAO.selectList"
+    , "typeSn" : ""
+    , "limitNo" : "15"
+  }
+  com_selectList(paramData, function(resultData) {
+	  var itemData = resultData;
+	  for (var i = 0; i < itemData.length; i++) {
+      cardList.innerHTML += createCard(
+		  itemData[i].PRDCT_SN
+		, itemData[i].PRDCT_NM
+		, itemData[i].PRDCT_PRCS
+		, itemData[i].DISC_AMNT
+		, itemData[i].DISC_PER
+		, itemData[i].IMG_PATH
+		, itemData[i].SAVE_NM
+		, itemData[i].IMG_EXTNS
+	  );
+    };
+  });
 }

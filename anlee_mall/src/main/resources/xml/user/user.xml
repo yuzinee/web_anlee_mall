@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userDAO">
-    <!-- 홈화면 최신 쿼리 -->
-    <select id="selectNew" resultType="Map" parameterType="String">
+    <!-- 리스트화면 쿼리 -->
+    <select id="selectList" resultType="Map" parameterType="String">
         SELECT   T1.PRDCT_SN
 		       , T1.PRDCT_NM
 		       , T1.PRDCT_PRCS
@@ -16,54 +16,20 @@
 		  ON T1.PRDCT_SN = T2.PRDCT_SN
 		 AND T2.IMG_TURN = '0'
 		WHERE T1.USE_YN = 'Y'
+		  AND T1.TYPE_SN LIKE CONCAT(#{typeSn}, '%')
 		ORDER BY T1.REG_DT DESC
-		LIMIT 4;
-    </select>
-    <!-- 홈화면 티비 쿼리 -->
-    <select id="selectTv" resultType="Map" parameterType="String">
-        SELECT   T1.PRDCT_SN
-		       , T1.PRDCT_NM
-		       , T1.PRDCT_PRCS
-		       , T1.DISC_AMNT
-		       , T1.DISC_PER
-		       , T2.IMG_PATH
-		       , T2.SAVE_NM
-		       , T2.IMG_EXTNS
-		FROM TB_PRODUCT T1
-		LEFT JOIN TB_PRODUCT_IMAGE T2
-		  ON T1.PRDCT_SN = T2.PRDCT_SN
-		 AND T2.IMG_TURN = '0'
-		WHERE T1.USE_YN = 'Y'
-		  AND T1.TYPE_SN LIKE '1_1_%'
-		ORDER BY T1.REG_DT DESC
-		LIMIT 4;
-    </select>
-    <!-- 홈화면 냉장고 쿼리 -->
-    <select id="selectRef" resultType="Map" parameterType="String">
-        SELECT   T1.PRDCT_SN
-		       , T1.PRDCT_NM
-		       , T1.PRDCT_PRCS
-		       , T1.DISC_AMNT
-		       , T1.DISC_PER
-		       , T2.IMG_PATH
-		       , T2.SAVE_NM
-		       , T2.IMG_EXTNS
-		FROM TB_PRODUCT T1
-		LEFT JOIN TB_PRODUCT_IMAGE T2
-		  ON T1.PRDCT_SN = T2.PRDCT_SN
-		 AND T2.IMG_TURN = '0'
-		WHERE T1.USE_YN = 'Y'
-		  AND T1.TYPE_SN LIKE '3_1_%'
-		ORDER BY T1.REG_DT DESC
-		LIMIT 4;
+		LIMIT ${limitNo};
     </select>
     <select id="selectCategory" resultType="Map" parameterType="String">
-        SELECT   T1.TYPE_NM AS SN1
-               , T2.TYPE_NM AS SN2
-               , T3.TYPE_NM AS SN3
-		FROM TB_PRODUCT T1
-		INNER JOIN TB_PRODUCT T2 ON T1.TYPE_SN = CONCAT(SUBSTRING_INDEX(T2.TYPE_SN, '_', 2)
-		INNER JOIN TB_PRODUCT T3 ON T2.TYPE_SN = CONCAT(SUBSTRING_INDEX(T3.TYPE_SN, '_', 1)
-		WHERE T3.PRDCT_SN = #{itemSn}
+        SELECT   TYPE_SN
+               , TYPE_NM
+        FROM TB_PRODUCT_TYPE
+        WHERE TYPE_SN = #{lvl3} OR TYPE_SN = #{lvl2} OR TYPE_SN = #{lvl1}
+        ORDER BY TYPE_LVL ASC;
+    </select>
+        <select id="selectItem" resultType="Map" parameterType="String">
+        SELECT TYPE_SN
+        FROM TB_PRODUCT
+        WHERE PRDCT_SN = #{itemSn}
     </select>
 </mapper>
