@@ -67,18 +67,3 @@ function selectList(){
     cardList.innerHTML += createCard(i+1, "ㅁㄴㅇㄻㄴㅇㄹ상품명이에요상품명상품명이에요상품명상품명이에요상품명", testitem[i].text, testitem[i].imgSrc);
   };
 }
-
-/*
-function search_test() {
-  var testParam = {
-    "queryId": "testMainDAO.selectTestList" // 쿼리 ID
-  }
-  com_selectList(testParam, function(testResult) {
-    var arrTest = testResult;
-    var cardContainer = document.getElementById("cardContainer");
-    for (var i = 0; i < arrTest.length; i++) {
-      // 카드들 추가
-      cardContainer.innerHTML += createCard(arrTest[i].TEST_SN, arrTest[i].TEST_NM, "테스트 요약", "https://via.placeholder.com/300");
-    }
-  });
-}*/

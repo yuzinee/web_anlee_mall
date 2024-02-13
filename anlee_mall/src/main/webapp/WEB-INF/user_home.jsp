@@ -7,7 +7,14 @@
   <div class="slideshow-dot">
     <div id="dotsContainer"></div>
   </div>
-<%@ include file="/WEB-INF/user_list.jsp" %>
+  <div class="home-list">
+    <p class="home-category">NEW<a href="/?123">더보기</a></p>
+    <div class="card-list" id="homeNew"></div>
+    <p class="home-category">TV<a href="">더보기</a></p>
+    <div class="card-list" id="homeTv"></div>
+    <p class="home-category">냉장고<a href="">더보기</a></p>
+    <div class="card-list" id="homeRef"></div>
+  </div>
 
 <%@ include file="/WEB-INF/user_footer.jsp" %>
 

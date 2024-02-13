@@ -2,9 +2,7 @@ var slideIndex = 1;
 var slideInterval; // 자동 슬라이드 쇼를 멈추기 위한 변수
 createSlide(); // 슬라이드 생성
 showSlides(slideIndex); // 슬라이드 표시
-
-/* 리스트 출력 user_list.js */
-selectList();
+createHomeList(); // 리스트 제작
 
 function createImage(imgSrc, text, page, totalpage) {
   var slideHtml = `
@@ -69,4 +67,90 @@ function showSlides(n) {
 // 자동 슬라이드 쇼 멈춤
 function pauseSlides() {
   clearTimeout(slideInterval);
+}
+
+// 0,0 표시
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// 홈화면 리스트 카드 만들기
+function createCard(sn, title, prcs, amnt, per, path, nm, extns) {
+  var discountedPriceHtml = '';
+  if (amnt === '0' && per === '0') {
+    discountedPriceHtml = `<p class="card-text">${numberWithCommas(prcs)}원</p>`;
+  } else {
+    const discountedPrice = prcs - amnt - (prcs * (0.01 * per));
+    discountedPriceHtml = `<p class="card-delete"><s>${numberWithCommas(prcs)}원</s></p><p class="card-result">${numberWithCommas(discountedPrice)}원</p>`;
+  }
+  console.log("한번");
+  console.log(path + nm + extns);
+  var cardHtml = `
+    <a class="card-container" href="?itemSn=${sn}">
+      <img src="${path + nm + extns}" class="card-image">
+      <div class="card-infor">
+        <p class="card-title">${title}</p>
+        ${discountedPriceHtml}
+      </div>
+    </a>
+    `;
+  return cardHtml;
+}
+
+// 홈화면 리스트 만들기
+function createHomeList(){
+  var paramNew = {
+      "queryId"	: "userDAO.selectNew"
+  }
+  com_selectList(paramNew, function(resultNew) {
+	  var itemNew = resultNew;
+	  for (var i = 0; i < itemNew.length; i++) {
+      homeNew.innerHTML += createCard(
+		  itemNew[i].PRDCT_SN
+		, itemNew[i].PRDCT_NM
+		, itemNew[i].PRDCT_PRCS
+		, itemNew[i].DISC_AMNT
+		, itemNew[i].DISC_PER
+		, itemNew[i].IMG_PATH
+		, itemNew[i].SAVE_NM
+		, itemNew[i].IMG_EXTNS
+	  );
+    };
+  });
+  var paramTv = {
+      "queryId"	: "userDAO.selectTv"
+  }
+  com_selectList(paramTv, function(resultTv) {
+	  var itemTv = resultTv;
+	  for (var i = 0; i < itemTv.length; i++) {
+      homeTv.innerHTML += createCard(
+		  itemTv[i].PRDCT_SN
+		, itemTv[i].PRDCT_NM
+		, itemTv[i].PRDCT_PRCS
+		, itemTv[i].DISC_AMNT
+		, itemTv[i].DISC_PER
+		, itemTv[i].IMG_PATH
+		, itemTv[i].SAVE_NM
+		, itemTv[i].IMG_EXTNS
+	  );
+    };
+  });
+  var paramRef = {
+      "queryId"	: "userDAO.selectRef"
+  }
+  com_selectList(paramRef, function(resultRef) {
+	  var itemRef = resultRef;
+	  for (var i = 0; i < itemRef.length; i++) {
+      homeRef.innerHTML += createCard(
+		  itemRef[i].PRDCT_SN
+		, itemRef[i].PRDCT_NM
+		, itemRef[i].PRDCT_PRCS
+		, itemRef[i].DISC_AMNT
+		, itemRef[i].DISC_PER
+		, itemRef[i].IMG_PATH
+		, itemRef[i].SAVE_NM
+		, itemRef[i].IMG_EXTNS
+	  );
+    };
+  });
 }

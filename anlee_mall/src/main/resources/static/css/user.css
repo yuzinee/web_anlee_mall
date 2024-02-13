@@ -162,6 +162,22 @@ body{
   to {opacity: 1}
 }
 
+/* 홈화면 카테고리 */
+.home-category{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-left: 10%;
+  font-size: 36px;
+  align-items: flex-end; /* 아래 정렬 */
+}
+.home-category a{
+  font-size:16px;
+  margin-left: 30px;
+  margin-bottom: 4px; /* 아래 간격 조절 */
+  color: #cccccc;
+}
+
 /* 물품 리스트 */
 .category-detail{
   display: flex;
@@ -217,6 +233,18 @@ body{
   font-size: 20px;
   color: red; /* 텍스트 색상을 빨간색으로 설정 */
   font-weight: bold; /* 굵은 글꼴로 설정 */
+}
+.card-delete{
+  font-size: 16px;
+  color: #cccccc; /* 텍스트 색상을 빨간색으로 설정 */
+  font-weight: bold; /* 굵은 글꼴로 설정 */
+  margin-top: -10px;
+}
+.card-result {
+  font-size: 20px;
+  color: red; /* 텍스트 색상을 빨간색으로 설정 */
+  font-weight: bold; /* 굵은 글꼴로 설정 */
+  margin-top: -25px;
 }
 /* 화면 폭이 1300px 이하일 때 */
 @media (max-width: 1300px) {
