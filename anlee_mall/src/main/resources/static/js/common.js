@@ -1,5 +1,5 @@
 	
-	// 단건 조회
+	/* 단건 조회 */
 	function com_selectOne(param, callbackFun) {	
 	
 		// 쿼리 ID가 생략되었을 경우
@@ -27,7 +27,7 @@
 		});
 	}
 	
-	// 리스트 조회
+	/* 리스트 조회 */
 	function com_selectList(param, callbackFun) {	
 	
 		// 쿼리 ID가 생략되었을 경우
@@ -55,7 +55,7 @@
 		});
 	}
 	
-	// 등록
+	/* 등록 */
 	function com_insert(param, callbackFun) {	
 	
 		// 쿼리 ID가 생략되었을 경우
@@ -83,7 +83,7 @@
 		});
 	}
 	
-	// 수정
+	/* 수정 */
 	function com_update(param, callbackFun) {
 	
 		// 쿼리 ID가 생략되었을 경우	
@@ -111,7 +111,7 @@
 		});
 	}
 	
-	// 삭제
+	/* 삭제 */
 	function com_delete(param, callbackFun) {	
 	
 		// 쿼리 ID가 생략되었을 경우
@@ -139,7 +139,7 @@
 		});
 	}
 	
-	// 파라미터 받는 함수(GET)
+	/* 파라미터 받는 함수(GET) */
 	function com_getParameter(key) {
 		// 현재 URL "?" 이후 부분
 	    var urlParams = new URLSearchParams(window.location.search);
@@ -150,3 +150,14 @@
 	    return paramValue;
 	}
 	
+	/* form -> Json 변환(document.getElementById('form_product')) */
+	function formToJson(formElement) {
+	    var formData = new FormData(formElement); 	// 폼 데이터
+	    var jsonObject = {}; 						// Json
+
+	    for (var pair of formData.entries()) {
+	        jsonObject[pair[0]] = pair[1];
+	    }
+
+	    return jsonObject;
+	}

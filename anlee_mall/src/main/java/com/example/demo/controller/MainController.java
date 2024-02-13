@@ -40,6 +40,11 @@ public class MainController {
 	public String otherController(@PathVariable("url") String url, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
+		if (!url.startsWith("user_") && !url.startsWith("manage_") && !url.startsWith("login_")) {
+	 
+	        return "/user_home"; // 또는 다른 처리를 수행할 수 있음
+	    }
+		
 	    if (url.startsWith("user_")) {
 	    	
 	        return url; // user_ 로 시작하는 URL은 세션 상관없이 페이지 전환
