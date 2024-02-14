@@ -22,12 +22,14 @@
 				class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
 				<div class="datatable-top">
 					<div class="datatable-dropdown">
-						<label> <select class="datatable-selector">
-							<option value="5">5</option>
-							<option value="10" selected="">10</option>
-							<option value="15">15</option>
-							<option value="20">20</option>
-							<option value="25">25</option></select> entries per page
+						<label> 
+							<select class="datatable-selector" id="sbx_limit" onchange="search_product_list(0, parseInt(this.value))">
+								<option value="1">1</option>
+								<option value="10" selected>10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+							</select> entries per page
 						</label>
 					</div>
 					<div class="datatable-search">
@@ -50,27 +52,9 @@
 					</table>
 				</div>
 				<div class="datatable-bottom">
-					<div class="datatable-info">Showing 1 to 10 of 100 entries</div>
 					<nav class="datatable-pagination">
-						<ul class="datatable-pagination-list">
-							<li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-								<a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-							</li>
-							<li class="datatable-pagination-list-item datatable-active">
-								<a data-page="1" class="datatable-pagination-list-item-link">1</a>
-							</li>
-							<li class="datatable-pagination-list-item">
-								<a data-page="2" class="datatable-pagination-list-item-link">2</a>
-							</li>
-							<li class="datatable-pagination-list-item">
-								<a data-page="3" class="datatable-pagination-list-item-link">3</a>
-							</li>
-							<li class="datatable-pagination-list-item">
-								<a data-page="4" class="datatable-pagination-list-item-link">4</a>
-							</li>
-							<li class="datatable-pagination-list-item">
-								<a data-page="2" class="datatable-pagination-list-item-link">›</a>
-							</li>
+						<ul class="datatable-pagination-list" id="ul_paging">
+							
 						</ul>
 					</nav>
 				</div>
@@ -80,37 +64,69 @@
 </body>
 <script>
 	var userId = '<%=(String) session.getAttribute("userId")%>';
+	var sbxLimitVal = parseInt($("#sbx_limit").val()); // 페이징 수
 	
 	$(document).ready(function(){
+		search_product_list(0, sbxLimitVal);
+	});
+	
+	function search_product_list(offset, limit){
+		// 리스트 조회
 		params = {
 			"queryId" : "manageProductInfoDAO.selectProduct"
 		  , "userId"  : userId
+		  , "limit": limit
+		  , "offset": offset
 		}
 		
 		com_selectList(params, function(result){
-			var html = "";
+			var htmlList = "";
+			var htmlPaging = "";
 			
+			// 리스트 추가
 			for(var i=0; i<result.length; i++){
-				html += "<tr data-index='0' onclick='tr_product_onclick("+ result[i].PRDCT_SN +")'>";
-				html += "<td>"+ result[i].PRDCT_NM +"</td>";
-				html += "<td>"+ result[i].PRDCT_DTLS +"</td>";
-				html += "<td>"+ result[i].PRDCT_STK +"</td>";
-				html += "<td>"+ price_format(result[i].PRDCT_PRCS) +"</td>";
+				htmlList += "<tr data-index='0' onclick='tr_product_onclick("+ result[i].PRDCT_SN +")'>";
+				htmlList += "<td>"+ result[i].PRDCT_NM +"</td>";
+				htmlList += "<td>"+ result[i].PRDCT_DTLS +"</td>";
+				htmlList += "<td>"+ result[i].PRDCT_STK +"</td>";
+				htmlList += "<td>"+ price_format(result[i].PRDCT_PRCS) +"</td>";
 				
 				if(result[i].DISC_AMNT == "0" && result[i].DISC_PER == "0"){
-				    html += "<td><span class='badge bg-success'>없음</span></td>";
+				    htmlList += "<td><span class='badge bg-success'>없음</span></td>";
 				} else if (result[i].DISC_AMNT != "0" && result[i].DISC_PER == "0"){
-				    html += "<td><span class='badge bg-primary'>금액 할인</span></td>";
+				    htmlList += "<td><span class='badge bg-primary'>금액 할인</span></td>";
 				} else if (result[i].DISC_AMNT == "0" && result[i].DISC_PER != "0"){
-				    html += "<td><span class='badge bg-info'>% 할인</span></td>";
+				    htmlList += "<td><span class='badge bg-info'>% 할인</span></td>";
 				}
 				
-				html += "</tr>";
+				htmlList += "</tr>";
 			}
 			
-			$("#product_list").html(html);
+			$("#product_list").html(htmlList);
+			
+			// 페이징
+			htmlPaging += "<li class='datatable-pagination-list-item datatable-hidden datatable-disabled'>";
+			htmlPaging += "<a data-page='1' class='datatable-pagination-list-item-link' onclick='search_product_list(0," + limit + ")'><</a></li>";
+			
+			var pagingNum = 0;
+
+			if(result[0].count%limit == 0){
+				pagingNum = result[0].count / limit;
+			} else {
+				pagingNum = result[0].count / limit + 1;
+			}
+			
+			for(var i=1; i<=pagingNum; i++){
+			    htmlPaging += "<li class='datatable-pagination-list-item datatable-active'>";
+			    htmlPaging += "<a data-page="+ i +" class='datatable-pagination-list-item-link' onclick='search_product_list("+ (i-1) +"," + limit + ")'>"+ i +"</a></li>";
+			}
+
+			htmlPaging += "<li class='datatable-pagination-list-item'>";
+			htmlPaging += "<a data-page='2' class='datatable-pagination-list-item-link' onclick='search_product_list("+ (pagingNum-1) +"," + limit + ")'>></a></li>";
+			
+			$("#ul_paging").html(htmlPaging);
 		});
-	});
+	}
 	
 	/* 가격 format 지정 */
 	function price_format(price){
