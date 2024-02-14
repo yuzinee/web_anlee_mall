@@ -151,7 +151,7 @@
 	}
 	
 	/* form -> Json 변환(document.getElementById('form_product')) */
-	function formToJson(formElement) {
+	function com_formToJson(formElement) {
 	    var formData = new FormData(formElement); 	// 폼 데이터
 	    var jsonObject = {}; 						// Json
 

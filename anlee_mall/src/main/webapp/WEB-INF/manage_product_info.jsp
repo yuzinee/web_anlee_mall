@@ -100,9 +100,9 @@
 				if(result[i].DISC_AMNT == "0" && result[i].DISC_PER == "0"){
 				    html += "<td><span class='badge bg-success'>없음</span></td>";
 				} else if (result[i].DISC_AMNT != "0" && result[i].DISC_PER == "0"){
-				    html += "<td><span class='badge bg-primary'>% 할인</span></td>";
+				    html += "<td><span class='badge bg-primary'>금액 할인</span></td>";
 				} else if (result[i].DISC_AMNT == "0" && result[i].DISC_PER != "0"){
-				    html += "<td><span class='badge bg-info'>금액 할인</span></td>";
+				    html += "<td><span class='badge bg-info'>% 할인</span></td>";
 				}
 				
 				html += "</tr>";

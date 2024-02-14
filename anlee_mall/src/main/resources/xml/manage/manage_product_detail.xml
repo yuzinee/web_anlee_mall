@@ -18,32 +18,32 @@
     <!-- 상품등록 -->
     <insert id="insertProduct">
     	INSERT INTO TB_PRODUCT 
-    (
-        PRDCT_SN 
-      , TYPE_SN 
-      , PRDCT_NM 
-      , PRDCT_DTLS 
-      , PRDCT_PRCS 
-      , PRDCT_STK
-      , DISC_AMNT
-      , DISC_PER 
-      , USE_YN 
-      , REG_DT
-      , REG_ID
-    ) 
-    SELECT 
-        IFNULL(MAX_PRDCT_SN, 0) + 1
-      , #{param[category3]}
-      , #{param[name]}
-      , #{param[detail]}
-      , #{param[price]}
-      , #{param[inventory]}
-      , IF(#{param[discountType]} = '0', #{param[discount]}, 0) AS DISC_AMNT
-      , IF(#{param[discountType]} = '1', #{param[discount]}, 0) AS DISC_PER
-      , "Y"
-      , sysdate()
-      , #{userId}
-    FROM (SELECT MAX(PRDCT_SN) AS MAX_PRDCT_SN FROM TB_PRODUCT) AS subquery
+	    (
+	        PRDCT_SN 
+	      , TYPE_SN 
+	      , PRDCT_NM 
+	      , PRDCT_DTLS 
+	      , PRDCT_PRCS 
+	      , PRDCT_STK
+	      , DISC_AMNT
+	      , DISC_PER 
+	      , USE_YN 
+	      , REG_DT
+	      , REG_ID
+	    ) 
+	    SELECT 
+	        IFNULL(MAX_PRDCT_SN, 0) + 1
+	      , #{param[category3]}
+	      , #{param[name]}
+	      , #{param[detail]}
+	      , #{param[price]}
+	      , #{param[inventory]}
+	      , IF(#{param[discountType]} = '0', #{param[discount]}, 0) AS DISC_AMNT
+	      , IF(#{param[discountType]} = '1', #{param[discount]}, 0) AS DISC_PER
+	      , "Y"
+	      , sysdate()
+	      , #{userId}
+	    FROM (SELECT MAX(PRDCT_SN) AS MAX_PRDCT_SN FROM TB_PRODUCT) AS subquery
     </insert>
     
     <!-- 상품 상세조회 -->
@@ -52,4 +52,28 @@
 		FROM TB_PRODUCT
 		WHERE PRDCT_SN = #{prdctSn}
     </select>
+    
+    <!-- 상품 수정 -->
+    <update id="updateProduct">
+    	UPDATE TB_PRODUCT 
+		SET TYPE_SN = #{param[category3]}
+		  , PRDCT_NM = #{param[name]}
+		  , PRDCT_DTLS = #{param[detail]}
+		  , PRDCT_PRCS = #{param[price]}
+		  , PRDCT_STK = #{param[inventory]}
+		  , DISC_AMNT = IF(#{param[discountType]} = '0', #{param[discount]}, 0)
+		  , DISC_PER = IF(#{param[discountType]} = '1', #{param[discount]}, 0)
+		  , MOD_DT = sysdate()
+		  , MOD_ID = #{userId}
+		WHERE REG_ID = #{userId}
+    	AND PRDCT_SN = #{prdctSn}
+    </update>
+    
+    <!-- 상품 삭제 -->
+    <update id="deleteProduct">
+    	UPDATE TB_PRODUCT
+    	SET USE_YN = "N"
+    	WHERE REG_ID = #{userId}
+    	AND PRDCT_SN = #{prdctSn}
+    </update>
 </mapper>

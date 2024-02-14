@@ -8,13 +8,12 @@
 <link rel="stylesheet" type="text/css" href="/css/manage_product_detail.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="/js/common.js"></script>
-<script src="/js/common_validation.js"></script>
 <script src="/js/manage_product_detail.js"></script>
 <title>Manage Product Insert</title>
 </head>
 <body>
   <form method="POST" class="register-form" id="form_product">
-	<h2>PRODUCT MANAGEMENT - 신규등록</h2>
+	<h2 id="h2_title">PRODUCT MANAGEMENT - 신규등록</h2>
 	<div class="form-row">
 	  <div class="form-group">
 		<label for="inp_name">상품명 :</label>
