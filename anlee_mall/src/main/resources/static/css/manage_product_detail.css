@@ -474,12 +474,16 @@ select {
     color: #fff
 }
 
-#btn_insert {
+#btn_insert,
+#btn_update,
+#btn_delete {
     background: #212831;
     color: #fff
 }
 
-#btn_insert:hover {
+#btn_insert:hover,
+#btn_update:hover,
+#btn_delete:hover {
     background-color: #cd5300
 }
 
