@@ -23,7 +23,7 @@
 				<div class="datatable-top">
 					<div class="datatable-dropdown">
 						<label> 
-							<select class="datatable-selector" id="sbx_limit" onchange="search_product_list(0, parseInt(this.value))">
+							<select class="datatable-selector" id="sbx_limit" onchange="search_product_list(0, parseInt(this.value))" style="cursor: pointer">
 								<option value="1">1</option>
 								<option value="10" selected>10</option>
 								<option value="15">15</option>
@@ -85,7 +85,7 @@
 			
 			// 리스트 추가
 			for(var i=0; i<result.length; i++){
-				htmlList += "<tr data-index='0' onclick='tr_product_onclick("+ result[i].PRDCT_SN +")'>";
+				htmlList += "<tr data-index='0' onclick='tr_product_onclick("+ result[i].PRDCT_SN +")' style='cursor: pointer'>";
 				htmlList += "<td>"+ result[i].PRDCT_NM +"</td>";
 				htmlList += "<td>"+ result[i].PRDCT_DTLS +"</td>";
 				htmlList += "<td>"+ result[i].PRDCT_STK +"</td>";
@@ -105,7 +105,7 @@
 			$("#product_list").html(htmlList);
 			
 			// 페이징
-			htmlPaging += "<li class='datatable-pagination-list-item datatable-hidden datatable-disabled'>";
+			htmlPaging += "<li class='datatable-pagination-list-item datatable-hidden datatable-disabled' style='cursor: pointer'>";
 			htmlPaging += "<a data-page='1' class='datatable-pagination-list-item-link' onclick='search_product_list(0," + limit + ")'><</a></li>";
 			
 			var pagingNum = 0;
@@ -117,11 +117,11 @@
 			}
 			
 			for(var i=1; i<=pagingNum; i++){
-			    htmlPaging += "<li class='datatable-pagination-list-item datatable-active'>";
+			    htmlPaging += "<li class='datatable-pagination-list-item datatable-active' style='cursor: pointer'>";
 			    htmlPaging += "<a data-page="+ i +" class='datatable-pagination-list-item-link' onclick='search_product_list("+ (i-1) +"," + limit + ")'>"+ i +"</a></li>";
 			}
 
-			htmlPaging += "<li class='datatable-pagination-list-item'>";
+			htmlPaging += "<li class='datatable-pagination-list-item' style='cursor: pointer'>";
 			htmlPaging += "<a data-page='2' class='datatable-pagination-list-item-link' onclick='search_product_list("+ (pagingNum-1) +"," + limit + ")'>></a></li>";
 			
 			$("#ul_paging").html(htmlPaging);
