@@ -16,13 +16,6 @@
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand ps-3" href="#">anlee</a>
-		<form
-			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-			<div class="input-group">
-				<input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch">
-				<button class="btn btn-primary" id="btnNavbarSearch" type="button"></button>
-			</div>
-		</form>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
@@ -36,7 +29,7 @@
 					</div>
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">ORDER MANAGEMENT</div>
-						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">주문내역</a>
+						<a class="nav-link" id="" onclick="nav_control('manage_product_order')" style="margin-left:10px; cursor: pointer">주문내역</a>
 						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">배송내역</a>
 						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">취소내역</a>
 						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">반품내역</a>

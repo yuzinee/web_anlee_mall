@@ -161,3 +161,8 @@
 
 	    return jsonObject;
 	}
+	
+	/* 가격 format 지정 */
+	function com_priceFormat(price){
+		return "₩" + price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manageProductOrderDAO">
+    <!-- 상품 리스트 조회 -->
+    <select id="selectOrder" resultType="Map" parameterType="java.util.Map">
+    	SELECT TP.PRDCT_NM 
+			 , TU.USER_NM 
+			 , TOD.ORDER_CNT 
+			 , TOD.RESULT_AMNT 
+			 , TP.REG_ID
+			 , TD.DRVR_STUS 
+			 , COUNT(*) OVER() AS count
+			 , TOD.ORDER_SN
+		FROM TB_ORDER TOD
+		JOIN TB_PRODUCT TP ON TOD.PRDCT_SN = TP.PRDCT_SN
+		JOIN TB_USER TU ON TOD.REG_ID = TU.USER_ID 
+		JOIN TB_DELIVERY TD ON TOD.ORDER_SN = TD.ORDER_SN 
+		AND TP.REG_ID = #{userId}
+		AND TOD.ORDER_STUS = 0
+		LIMIT #{limit}
+		OFFSET #{offset}
+    </select>
+</mapper>

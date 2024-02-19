@@ -4,7 +4,7 @@
     <!-- 상품 리스트 조회 -->
     <select id="selectProduct" resultType="Map" parameterType="java.util.Map">
         SELECT *
-        	 , (SELECT COUNT(*) FROM TB_PRODUCT WHERE REG_ID = 'wlsdl9824' AND USE_YN = 'Y') AS count
+        	 , COUNT(*) OVER() AS count
 		FROM TB_PRODUCT
 		WHERE REG_ID = #{userId}
 		AND USE_YN = "Y"
