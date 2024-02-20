@@ -1,7 +1,5 @@
-	
 	/* 단건 조회 */
 	function com_selectOne(param, callbackFun) {	
-	
 		// 쿼리 ID가 생략되었을 경우
 		if(param.length < 1){
 			alert("쿼리 ID를 입력해 주세요.");
@@ -29,7 +27,6 @@
 	
 	/* 리스트 조회 */
 	function com_selectList(param, callbackFun) {	
-	
 		// 쿼리 ID가 생략되었을 경우
 		if(param.length < 1){
 			alert("쿼리 ID를 입력해 주세요.");
@@ -57,7 +54,6 @@
 	
 	/* 등록 */
 	function com_insert(param, callbackFun) {	
-	
 		// 쿼리 ID가 생략되었을 경우
 		if(param.length < 1){
 			alert("쿼리 ID를 입력해 주세요.");
@@ -85,7 +81,6 @@
 	
 	/* 수정 */
 	function com_update(param, callbackFun) {
-	
 		// 쿼리 ID가 생략되었을 경우	
 		if(param.length < 1){
 			alert("쿼리 ID를 입력해 주세요.");
@@ -113,7 +108,6 @@
 	
 	/* 삭제 */
 	function com_delete(param, callbackFun) {	
-	
 		// 쿼리 ID가 생략되었을 경우
 		if(param.length < 1){
 			alert("쿼리 ID를 입력해 주세요.");
@@ -165,4 +159,33 @@
 	/* 가격 format 지정 */
 	function com_priceFormat(price){
 		return "₩" + price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
+	/* 페이징 */
+	function com_paging(result, limit){
+		var htmlPaging = "";
+		
+		// 2페이지 이상일 경우
+		if(limit <= result[0].count){
+			htmlPaging += "<li class='datatable-pagination-list-item datatable-hidden datatable-disabled' style='cursor: pointer'>";
+			htmlPaging += "<a data-page='1' class='datatable-pagination-list-item-link' onclick='search_product_list(0," + limit + ")'><</a></li>";
+			
+			var pagingNum = 0;
+			
+			if(result[0].count%limit == 0){
+				pagingNum = result[0].count / limit;
+			} else {
+				pagingNum = result[0].count / limit + 1;
+			}
+			
+			for(var i=1; i<=pagingNum; i++){
+			    htmlPaging += "<li class='datatable-pagination-list-item datatable-active' style='cursor: pointer'>";
+			    htmlPaging += "<a data-page="+ i +" class='datatable-pagination-list-item-link' onclick='search_product_list("+ (i-1) +"," + limit + ")'>"+ i +"</a></li>";
+			}
+			
+			htmlPaging += "<li class='datatable-pagination-list-item' style='cursor: pointer'>";
+			htmlPaging += "<a data-page='2' class='datatable-pagination-list-item-link' onclick='search_product_list("+ (pagingNum-1) +"," + limit + ")'>></a></li>";
+			
+			$("#ul_paging").html(htmlPaging);
+		}
 	}

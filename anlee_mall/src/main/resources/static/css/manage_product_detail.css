@@ -476,14 +476,16 @@ select {
 
 #btn_insert,
 #btn_update,
-#btn_delete {
+#btn_delete,
+#btn_accept {
     background: #212831;
     color: #fff
 }
 
 #btn_insert:hover,
 #btn_update:hover,
-#btn_delete:hover {
+#btn_delete:hover,
+#btn_accept:hover {
     background-color: #cd5300
 }
 

@@ -24,12 +24,12 @@
 							<th data-sortable="true" style="width: 32%;"><a href="#" class="datatable-sorter">구매자</a></th>
 							<th data-sortable="true" style="width: 17%;"><a href="#" class="datatable-sorter">수량</a></th>
 							<th data-sortable="true" style="width: 17%;"><a href="#" class="datatable-sorter">결제금액</a></th>
-							<th data-sortable="true" style="width: 17%;"><a href="#" class="datatable-sorter">배송처리</a></th>
+							<th data-sortable="true" style="width: 17%;"><a href="#" class="datatable-sorter">상품상태</a></th>
 						</tr>
 					</thead>
 					<tbody id="order_list">
 						<tr data-index='0' id="order_list1" onclick="order_list_onclick(1)">
-							<td id="order_name1"> </td>
+							<td id="order_name1">　</td>
 							<td id="user_name1"> </td>
 							<td id="order_count1"> </td>
 							<td id="result_amount1"> </td>
@@ -83,52 +83,42 @@
 		<div class="form-row">
 		  <div class="form-group">
 			<label for="inp_name">주문번호 :</label>
-			<input type="text" name="name" id="inp_name" readOnly>
+			<input type="text" name="order_sn" id="order_sn" readOnly>
 		  </div>
 		  <div class="form-group">
 			<label for="inp_name">주문자 ID :</label>
-			<input type="text" name="name" id="inp_name" readOnly>
+			<input type="text" name="user_name" id="user_id" readOnly>
 		  </div>
 		  <div class="form-group">
 			<label for="inp_name">주문자 이름 :</label>
-			<input type="text" name="name" id="inp_name" readOnly>
+			<input type="text" name="user_nm" id="user_nm" readOnly>
 		  </div>
 		</div>
 		<div class="form-row">
 		  <div class="form-group">
 			<label for="inp_code">상품명 :</label>
-			<input type="text" name="code" id="inp_code" readOnly>
+			<input type="text" name="product_nm" id="product_nm" readOnly>
 		  </div>
 		  <div class="form-group">
 			<label for="inp_price">수량 :</label>
-			<input type="number" name="price" id="inp_price" readOnly>
+			<input type="number" name="product_cnt" id="product_cnt" readOnly>
 		  </div>
 		  <div class="form-group">
 			<label for="inp_inventory">결제금액 :</label>
-			<input type="number" name="inventory" id="inp_inventory" readOnly>
+			<input type="text" name="product_amnt" id="product_amnt" readOnly>
 		  </div>
 		</div>
 		<div class="form-group">
 		  <label for="inp_detail">주소 :</label>
-		  <input type="text" name="detail" id="inp_detail" readOnly>
+		  <input type="text" name="user_adr" id="user_adr" readOnly>
 		</div>
 		<div class="form-submit">
-		  <input type="button" value="주문취소" class="submit" name="reset" id="reset" onclick="btn_reset_onclick()">
-		  <input type="button" value="배송시작" class="submit" name="submit" id="btn_insert" onclick="btn_insert_onclick()">
+		  <input type="button" value="주문취소" class="submit" name="reset" id="btn_cancel" onclick="btn_cancel_onclick()">
+		  <input type="button" value="주문접수" class="submit" name="submit" id="btn_accept" onclick="btn_accept_onclick()">
 		</div>
     </div>
 </body>
 <script>
 	var userId = '<%=(String) session.getAttribute("userId")%>';
-	
-	/* tr 클릭 */
-	function order_list_onclick(td){
-		var orderSn = $("#order_sn"+td).val();
-		
-		if(orderSn != ""){
-			console.log("asdf");
-		};
-		
-	}
 </script>
 </html>

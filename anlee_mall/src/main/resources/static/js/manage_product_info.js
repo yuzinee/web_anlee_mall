@@ -39,27 +39,7 @@
 			$("#product_list").html(htmlList);
 			
 			if($("#sbx_limit").val() <= result[0].count){
-				// 페이징
-				htmlPaging += "<li class='datatable-pagination-list-item datatable-hidden datatable-disabled' style='cursor: pointer'>";
-				htmlPaging += "<a data-page='1' class='datatable-pagination-list-item-link' onclick='search_product_list(0," + limit + ")'><</a></li>";
-				
-				var pagingNum = 0;
-				
-				if(result[0].count%limit == 0){
-					pagingNum = result[0].count / limit;
-				} else {
-					pagingNum = result[0].count / limit + 1;
-				}
-				
-				for(var i=1; i<=pagingNum; i++){
-				    htmlPaging += "<li class='datatable-pagination-list-item datatable-active' style='cursor: pointer'>";
-				    htmlPaging += "<a data-page="+ i +" class='datatable-pagination-list-item-link' onclick='search_product_list("+ (i-1) +"," + limit + ")'>"+ i +"</a></li>";
-				}
-	
-				htmlPaging += "<li class='datatable-pagination-list-item' style='cursor: pointer'>";
-				htmlPaging += "<a data-page='2' class='datatable-pagination-list-item-link' onclick='search_product_list("+ (pagingNum-1) +"," + limit + ")'>></a></li>";
-				
-				$("#ul_paging").html(htmlPaging);
+				com_paging(result, limit);
 			}
 		});
 	}
