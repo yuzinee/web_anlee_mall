@@ -3,7 +3,6 @@
 
 <div class="category-detail" id="categoryDetail"></div>
 
-<div id="itemMain"></div>
 
 <%@ include file="/WEB-INF/user_footer.jsp" %>
 

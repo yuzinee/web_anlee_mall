@@ -1,45 +1,44 @@
-selectList();
+var typeSn = com_getParameter('typeSn');
 
-function createCategory(first, second) {
-  var categoryHtml = `
-    <a href="?ite">${first}</a><span>&nbsp;&gt;&nbsp;${second}</span>
-    `;
-  return categoryHtml;
+if (typeSn == null){
+  categoryDetail.innerHTML += `<p>전체보기</p>`;
+  selectList(typeSn); 
+}
+else {
+  selectCategory(typeSn);
+  selectList(typeSn);
 }
 
-function selectCategory(sn){
-  if (sn == null){
-    return;  
-  };
-  categoryDetail.innerHTML += createCategory("TV/디스플레이","모니터");
-}
+// 카테고리 제작
+function selectCategory(typeSn){
+  // _ 로 자르기
+  var arrType = typeSn.split("_");
+  var sqlQuery = "";
 
-// 리스트 html 제작
-function createCard(sn, title, prcs, amnt, per, path, nm, extns) {
-  var discountedPriceHtml = '';
-  if (amnt === '0' && per === '0') {
-    discountedPriceHtml = `<p class="card-text">${numberWithCommas(prcs)}원</p>`;
-  } else {
-    const discountedPrice = prcs - amnt - (prcs * (0.01 * per));
-    discountedPriceHtml = `<p class="card-delete"><s>${numberWithCommas(prcs)}원</s></p><p class="card-result">${numberWithCommas(discountedPrice)}원</p>`;
+  for (var i = 0; i < arrType.length; i++) {
+    var lvl = arrType.slice(0, i + 1).join("_");
+    sqlQuery += (i > 0 ? " OR TYPE_SN = " : "") + "'" + lvl + "'";
   }
-  var cardHtml = `
-    <a class="card-container" href="/user_item?itemSn=${sn}">
-      <img src="${path + nm + extns}" class="card-image">
-      <div class="card-infor">
-        <p class="card-title">${title}</p>
-        ${discountedPriceHtml}
-      </div>
-    </a>
-    `;
-  return cardHtml;
+
+  var paramCategory = {
+      "queryId" : "userDAO.selectCategory"
+    , "sqlQuery" : sqlQuery
+  }
+
+  com_selectList(paramCategory, function(resultCategory){
+    var category = resultCategory;
+    categoryDetail.innerHTML += createCategory(category);
+  });
 }
 
 // 리스트 제작
-function selectList(){
+function selectList(typeSn){
+  if (typeSn == null){
+	  typeSn = "";
+  }
   var paramData = {
       "queryId"	: "userDAO.selectList"
-    , "typeSn" : ""
+    , "typeSn" : typeSn
     , "limitNo" : "15"
   }
   com_selectList(paramData, function(resultData) {

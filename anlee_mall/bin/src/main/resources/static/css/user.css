@@ -42,9 +42,18 @@ body{
   max-height: 50px;
 }
 
+.nav-wrapper{
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  white-space: nowrap; /* 줄 바꿈 금지 */
+  overflow: hidden; /* 넘치는 부분 감춤 */
+}
+
 .nav-category {
   justify-content: flex-start;
-  margin: 0 10% 0 10%;
 }
 
 .nav-category a {
@@ -57,12 +66,12 @@ body{
 }
 
 .nav-searchbox {
-  width : 28%;
+  width : 300px;
   height: 36px;
   border: 2px solid #696969;
   background-color : white;
   border-radius: 12px;
-  float: right;
+  margin-left: auto; /* input 요소를 오른쪽으로 정렬합니다. */
 }
 
 .footer-main {
@@ -174,9 +183,9 @@ body{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: 10px;
-  margin-left: 10%;
-  font-size: 22px;
+  max-width: 1300px;
+  margin: 0 auto;
+  font-size: 36px;
 }
 .card-list{
   display: flex;
@@ -189,7 +198,7 @@ body{
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 500px;
+  height: 450px;
   border: 2px solid #F7F7F7;
   background-color: #ffffff;
   border-radius: 12px;
@@ -218,10 +227,7 @@ body{
   font-weight: bold; /* 굵은 글꼴로 설정 */
   overflow: hidden; /* 텍스트가 영역을 넘어갈 경우 숨깁니다. */
   text-overflow: ellipsis; /* 텍스트가 잘린 경우 말줄임표로 표시합니다. */
-  display: -webkit-box; /* -webkit- 접두사를 사용하여 작동하는 Flexbox 컨테이너로 표시합니다. */
-  -webkit-line-clamp: 3; /* 표시할 줄 수를 지정합니다. */
-  -webkit-box-orient: vertical; /* Flexbox의 주축을 수직 방향으로 설정합니다. */
-  white-space: normal; /* 텍스트가 한 줄로 표시되도록 설정합니다. */
+  white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 설정합니다. */
 }
 .card-text {
   font-size: 20px;
@@ -240,36 +246,6 @@ body{
   font-weight: bold; /* 굵은 글꼴로 설정 */
   margin-top: -25px;
 }
-
-/* 전체 카테고리 */
-.menu-container {
-  position: relative;
-  display: inline-block;
-}
-
-.submenu {
-  display: none;
-  position: absolute;
-  height: 200px;
-  width: 200px;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
-.subitem {
-  display: none;
-  position: absolute;
-  height: 200px;
-  width: 200px;
-  top: 0;
-  left: 100%;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
 /* 화면 폭이 1300px 이하일 때 */
 @media (max-width: 1300px) {
   .card-list {
@@ -286,8 +262,8 @@ body{
 @media (max-width: 768px) {
   /* 네비게이션 바 */
   .nav-main .login-container .login-menu,
-  .nav-main .nav-category,
-  .nav-main .nav-searchbox,
+  .nav-main .home-body .nav-wrapper .nav-category,
+  .nav-main .home-body .nav-wrapper .nav-searchbox,
   .dot {
     display: none;
   }  
@@ -336,5 +312,11 @@ body{
   .card-image {
     width: 200px;
     height: 200px;
+  }
+  .card-title {
+  display: -webkit-box; /* -webkit- 접두사를 사용하여 작동하는 Flexbox 컨테이너로 표시합니다. */
+  -webkit-line-clamp: 3; /* 표시할 줄 수를 지정합니다. */
+  -webkit-box-orient: vertical; /* Flexbox의 주축을 수직 방향으로 설정합니다. */
+  white-space: normal; /* 텍스트가 한 줄로 표시되도록 설정합니다. */
   }
 }

@@ -8,11 +8,11 @@
     <div id="dotsContainer"></div>
   </div>
   <div class="home-list">
-    <p class="home-category">NEW<a href="/user_list">더보기</a></p>
+    <p class="home-category">NEW<a href="/?123">더보기</a></p>
     <div class="card-list" id="homeNew"></div>
-    <p class="home-category">TV<a href="/user_list?typeSn=1_1">더보기</a></p>
+    <p class="home-category">TV<a href="">더보기</a></p>
     <div class="card-list" id="homeTv"></div>
-    <p class="home-category">냉장고<a href="/user_list?typeSn=3_1">더보기</a></p>
+    <p class="home-category">냉장고<a href="">더보기</a></p>
     <div class="card-list" id="homeRef"></div>
   </div>
 

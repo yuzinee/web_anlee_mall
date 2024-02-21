@@ -2,9 +2,10 @@
 <%@ include file="/WEB-INF/user_nav.jsp" %>
 
 <div class="category-detail" id="categoryDetail"></div>
-
-<div id="itemMain"></div>
+<div class="card-list" id="cardList"></div>
 
 <%@ include file="/WEB-INF/user_footer.jsp" %>
 
-<script src="/js/user_item.js"></script>
+<script src="/js/user_home.js"></script>
+
+<script src="/js/user_list.js"></script>

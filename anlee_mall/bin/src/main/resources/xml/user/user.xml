@@ -14,8 +14,8 @@
 		FROM TB_PRODUCT T1
 		LEFT JOIN TB_PRODUCT_IMAGE T2
 		  ON T1.PRDCT_SN = T2.PRDCT_SN
+		 AND T2.IMG_TURN = '0'
 		WHERE T1.USE_YN = 'Y'
-		  AND T2.IMG_TURN = '0'
 		  AND T1.TYPE_SN LIKE CONCAT(#{typeSn}, '%')
 		ORDER BY T1.REG_DT DESC
 		LIMIT ${limitNo};
@@ -24,29 +24,12 @@
         SELECT   TYPE_SN
                , TYPE_NM
         FROM TB_PRODUCT_TYPE
-        WHERE TYPE_SN = ${sqlQuery}
+        WHERE TYPE_SN = #{lvl3} OR TYPE_SN = #{lvl2} OR TYPE_SN = #{lvl1}
         ORDER BY TYPE_LVL ASC;
     </select>
-    <select id="selectItem" resultType="Map" parameterType="String">
+        <select id="selectItem" resultType="Map" parameterType="String">
         SELECT TYPE_SN
         FROM TB_PRODUCT
         WHERE PRDCT_SN = #{itemSn}
-    </select>
-    <select id="selectDetail" resultType="Map" parameterType="String">
-        SELECT   T1.PRDCT_SN
-               , T1.TYPE_SN
-		       , T1.PRDCT_NM
-		       , T1.PRDCT_PRCS
-		       , T1.DISC_AMNT
-		       , T1.DISC_PER
-		       , T2.IMG_PATH
-		       , T2.SAVE_NM
-		       , T2.IMG_EXTNS
-		FROM TB_PRODUCT T1
-		LEFT JOIN TB_PRODUCT_IMAGE T2
-		  ON T1.PRDCT_SN = T2.PRDCT_SN
-		WHERE T1.USE_YN = 'Y'
-		  AND T1.PRDCT_SN = #{itemSn}
-		ORDER BY T1.REG_DT DESC;
     </select>
 </mapper>
