@@ -2,6 +2,13 @@
 	$(document).ready(function(){
 		css_script();				// css script
 		$("#btn_signIn").click(); 	// 로그인으로 세팅
+		
+		var id = getCookie("id");
+		$("#inp_id").val(id);
+		
+		if(id != ""){
+			
+		}
 	});
 	
 	/* btn_sign click */

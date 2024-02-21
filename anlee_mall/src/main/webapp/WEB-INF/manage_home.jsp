@@ -30,7 +30,7 @@
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">ORDER MANAGEMENT</div>
 						<a class="nav-link" id="" onclick="nav_control('manage_product_order')" style="margin-left:10px; cursor: pointer">주문내역</a>
-						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">배송내역</a>
+						<a class="nav-link" id="" onclick="nav_control('manage_product_delivery')" style="margin-left:10px; cursor: pointer">배송내역</a>
 						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">취소내역</a>
 						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">반품내역</a>
 						<a class="nav-link" id="" onclick="nav_control()" style="margin-left:10px; cursor: pointer">교환내역</a>

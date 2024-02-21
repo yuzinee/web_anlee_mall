@@ -56,6 +56,9 @@
 	    <div class="form-element">
 	      <input type="text" placeholder="phone(ex: 010-1234-1234)" id="inp_phone" name="phone">
 	    </div>
+	   
+	      
+	
 	    <div class="form-element">
 	      <button id="btn_sign" onclick="btn_sign_onclick()">Sign Up</button>
 	    </div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manageProductDeliveryDAO">
+    <!-- 배송 내역 조회 -->
+    <select id="selectDelivery" resultType="Map" parameterType="java.util.Map">
+        SELECT TD.DRVR_NUM 
+        	 , TP.PRDCT_NM 
+			 , TD.DRVR_SN 
+		     , TD.ORDER_SN 
+		     , TD.DRVR_STUS 
+		     , TD.EST_DT
+		     , TOD.ORDER_ADR 
+		     , TU.USER_PN 
+		FROM TB_DELIVERY TD 
+		JOIN TB_ORDER TOD ON TD.ORDER_SN = TOD.ORDER_SN
+		JOIN TB_PRODUCT TP ON TP.PRDCT_SN = TOD.PRDCT_SN 
+		LEFT JOIN TB_USER TU ON TOD.REG_ID = TU.USER_ID 
+		WHERE TOD.ORDER_STUS = 0
+		AND TD.DRVR_STUS != 2
+		AND TP.REG_ID = #{userId}
+		<if test='status != "all"'>
+			AND TD.DRVR_STUS = #{status}
+		</if>
+		LIMIT #{limit}
+		OFFSET #{offset}
+    </select>
+</mapper>
